@@ -1,0 +1,121 @@
+ #-----import statements--
+import turtle as trtl
+import random as rand
+score_writer =  trtl.Turtle()
+tr = trtl.Turtle()
+tr.shape=("turtle")
+#shape = "turtle"
+tr.goto(-100,5)
+tr.penup()
+wn = trtl.Screen()
+wn.bgpic("background.gif")
+tr.penup()
+font_setup = ("Arial", 20, "normal")
+score = 0
+tr.pendown()
+ #-----game configuration-
+spot_clicked.pic("hops.gif")
+#-----initialize turtle--
+spot = trtl.Turtle()
+spot.shape(spotShape)
+spot.turtlesize(spotSize)
+spot.fillcolor(spotColor)
+#-----game functions-----
+font_setup = ("Arial", 20, "normal")
+score = 0
+
+#-----import statements-----
+import turtle as trtl
+
+#-----countdown variables-----
+font_setup = ("Arial", 20, "normal")
+timer = 30
+counter_interval = 1000   #1000 represents 1 second
+timer_up = False
+
+#-----countdown writer-----
+counter =  trtl.Turtle()
+counter.penup()
+counter.goto(-5,-2)
+counter.pendown()
+#-----score writer-----
+score_writer = trtl.Turtle()
+score_writer.penup()
+score_writer.goto(-7,-18)
+#-----game functions-----
+def countdown():
+  global timer, timer_up
+  counter.clear()
+  if timer <= 0:
+    counter.write("Time's Up", font=font_setup)
+    timer_up = True
+  else:
+    counter.write("Timer: " + str(timer), font=font_setup)
+    timer -= 1
+    counter.getscreen().ontimer(countdown, counter_interval) 
+
+def score_update():
+  global score
+  if timer <= 0:
+    print(score)
+  else:
+    score_writer.clear()
+    score_writer.write("Score: " + str(score), font=font_setup)
+    score += 1
+
+def spot_clicked(x,y):
+  change_position()
+  score_update()
+  
+def change_position():
+  new_xpos = rand.randint(-180,180)
+  new_ypos = rand.randint(-140,140)
+  spot.hideturtle()
+  spot.goto(new_xpos,new_ypos)
+  spot.showturtle()
+
+def up():
+    if tr.heading() != 270:
+        tr.setheading(90)
+        tr.forward(20)
+        tr.penup()
+
+def down():
+    if tr.heading() != 90:
+        tr.setheading(270)
+        tr.forward(20)
+        tr.penup()
+      
+    
+def left():
+    if tr.heading() != 0:
+        tr.setheading(180)
+        tr.forward(20)
+        tr.penup()
+
+def right():
+    if tr.heading() != 180:
+        tr.setheading(0)
+        tr.forward(20)
+        tr.penup()
+
+def intro():
+  name = input('What is your name? ')
+  print('Welcome to Mario,', name, '!')
+#countdown()
+intro()
+wn.onkeypress(up, 'Up')
+wn.onkeypress(down, 'Down')
+wn.onkeypress(left, 'Left')
+wn.onkeypress(right, 'Right')
+
+
+
+#-----events-------------
+wn.listen()
+ #-----events-------------
+countdown()
+spot.penup()
+spot.onclick(spot_clicked)
+wn = trtl.Screen()
+wn.mainloop()
